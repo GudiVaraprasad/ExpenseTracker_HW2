@@ -1,11 +1,12 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ExpenseTrackerModel {
 
-  public List<Transaction> transactions;
+  private List<Transaction> transactions;
 
   public ExpenseTrackerModel() {
     transactions = new ArrayList<>(); 
@@ -20,7 +21,8 @@ public class ExpenseTrackerModel {
   }
 
   public List<Transaction> getTransactions() {
-    return transactions;
+    // returning immutable list which is basically a copy of the original list.
+    return Collections.unmodifiableList(new ArrayList<>(transactions));
   }
 
 }

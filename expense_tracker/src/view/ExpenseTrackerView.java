@@ -19,7 +19,15 @@ public class ExpenseTrackerView extends JFrame {
   private JFormattedTextField amountField;
   private JTextField categoryField;
   private DefaultTableModel model;
-  
+
+  private JButton applyFiltersBtn;
+
+  private JButton clearFiltersBtn;
+
+  private JFormattedTextField minAmountFilter;
+  private JFormattedTextField maxAmountFilter;
+
+  private JComboBox<String> categoryFilter;
 
   public ExpenseTrackerView() {
     setTitle("Expense Tracker"); // Set title
@@ -54,16 +62,16 @@ public class ExpenseTrackerView extends JFrame {
 
     // Create combo box for category filtering
     String[] categories = {"food", "travel", "bills", "entertainment", "other"};
-    JComboBox<String> categoryFilter = new JComboBox<>(categories);
+    categoryFilter = new JComboBox<>(categories);
     categoryFilter.setSelectedIndex(-1); // Initially, no category is selected
 
     // Create fields for minimum and maximum amount filtering
-    JFormattedTextField minAmountFilter = new JFormattedTextField(format);
-    JFormattedTextField maxAmountFilter = new JFormattedTextField(format);
+    minAmountFilter = new JFormattedTextField(format);
+    maxAmountFilter = new JFormattedTextField(format);
 
     // Create a button to clear filters
-    JButton clearFiltersBtn = new JButton("Clear Filters");
-    JButton applyFiltersBtn = new JButton("Apply Filters");
+    clearFiltersBtn = new JButton("Clear Filters");
+    applyFiltersBtn = new JButton("Apply Filters");
 
     JPanel filterPanel = new JPanel();
 
@@ -129,11 +137,76 @@ public class ExpenseTrackerView extends JFrame {
       // Fire table update
       transactionsTable.updateUI();
   
-    }  
-  
+    }
 
-  
-  
+
+  public void refreshTableForFilteredTransactions(List<Transaction> transactions) {
+    // Clear existing rows
+    model.setRowCount(0);
+    // Get row count
+    int rowNum = model.getRowCount();
+    double totalCost=0;
+    // Calculate total cost
+    for(Transaction t : transactions) {
+      totalCost+=t.getAmount();
+    }
+    // Add rows from transactions list
+    for(Transaction t : transactions) {
+      model.addRow(new Object[]{rowNum+=1,t.getAmount(), t.getCategory(), t.getTimestamp()});
+    }
+    // Add total row
+    Object[] totalRow = {"Total", null, null, totalCost};
+    model.addRow(totalRow);
+
+    // Fire table update
+    transactionsTable.updateUI();
+
+  }
+
+  public double getMinAmountFilterField(){
+    if(minAmountFilter.getText().isEmpty()) {
+      return 0;
+    }else {
+      double amount = Double.parseDouble(minAmountFilter.getText());
+      return amount;
+    }
+  }
+
+  public double getMaxAmountFilterField(){
+    if(maxAmountFilter.getText().isEmpty()) {
+      return 0;
+    }else {
+      double amount = Double.parseDouble(maxAmountFilter.getText());
+      return amount;
+    }
+  }
+
+  public String getCategoryFilterField(){
+    return String.valueOf(categoryFilter.getSelectedItem());
+  }
+  public JButton getApplyFilterBtn() {
+    return applyFiltersBtn;
+  }
+
+  public JButton getClearFilterBtn() {
+    return clearFiltersBtn;
+  }
+
+  public void setCategoryFilterField(String category){
+    if(category.equals("")){
+      categoryFilter.setSelectedIndex(-1);
+    }
+  }
+
+  public void setMinAmountFilterField(double minAmount){
+    minAmountFilter.setValue(minAmount);
+  }
+
+  public void setMaxAmountFilterField(double maxAmount){
+    maxAmountFilter.setValue(maxAmount);
+  }
+
+
   public JButton getAddTransactionBtn() {
     return addTransactionBtn;
   }

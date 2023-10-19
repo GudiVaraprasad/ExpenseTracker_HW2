@@ -1,11 +1,19 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
-
+ 
 public class TransactionsFilterByAmount implements TransactionFilter{
     @Override
     public List<Transaction> filter(List<Transaction> transactions) {
-        return null;
+        List<Transaction> filteredTransactions = new ArrayList<Transaction>();
+
+        for(Transaction transaction : transactions){
+            if(transaction.getAmount() >= this.minAmount && transaction.getAmount() <= this.maxAmount){
+                filteredTransactions.add(transaction);
+            }
+        }
+        return filteredTransactions;
     }
 
     private double minAmount;

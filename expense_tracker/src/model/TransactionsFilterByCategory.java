@@ -3,12 +3,21 @@ package model;
 import model.Transaction;
 import model.TransactionFilter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionsFilterByCategory implements TransactionFilter {
     @Override
     public List<Transaction> filter(List<Transaction> transactions) {
-        return null;
+
+        List<Transaction> filteredTransactions = new ArrayList<Transaction>();
+
+        for (Transaction transaction : transactions) {
+            if (transaction.getCategory().equals(this.category)) {
+                filteredTransactions.add(transaction);
+            }
+        }
+        return filteredTransactions;
     }
 
     private String category;

@@ -51,20 +51,61 @@ public class ExpenseTrackerView extends JFrame {
     inputPanel.add(categoryLabel); 
     inputPanel.add(categoryField);
     inputPanel.add(addTransactionBtn);
-  
+
+    // Create combo box for category filtering
+    String[] categories = {"food", "travel", "bills", "entertainment", "other"};
+    JComboBox<String> categoryFilter = new JComboBox<>(categories);
+    categoryFilter.setSelectedIndex(-1); // Initially, no category is selected
+
+    // Create fields for minimum and maximum amount filtering
+    JFormattedTextField minAmountFilter = new JFormattedTextField(format);
+    JFormattedTextField maxAmountFilter = new JFormattedTextField(format);
+
+    // Create a button to clear filters
+    JButton clearFiltersBtn = new JButton("Clear Filters");
+    JButton applyFiltersBtn = new JButton("Apply Filters");
+
+    JPanel filterPanel = new JPanel();
+
+    // Filter by Amount
+//    filterPanel.add(new JLabel("Filter by Amount:"));
+    filterPanel.add(new JLabel("Min Amount:"));
+    filterPanel.add(minAmountFilter);
+    minAmountFilter.setPreferredSize(new Dimension(50, 25));
+    filterPanel.add(new JLabel("Max Amount:"));
+    filterPanel.add(maxAmountFilter);
+    maxAmountFilter.setPreferredSize(new Dimension(50, 25));
+
+
+    // Filter by Category
+    filterPanel.add(new JLabel("Category:"));
+    filterPanel.add(categoryFilter);
+
+    //
+    filterPanel.add(applyFiltersBtn);
+    //A field to clear all the applied filters
+    filterPanel.add(clearFiltersBtn);
+
     JPanel buttonPanel = new JPanel();
     buttonPanel.add(addTransactionBtn);
-  
-    // Add panels to frame
-    add(inputPanel, BorderLayout.NORTH);
-    add(new JScrollPane(transactionsTable), BorderLayout.CENTER); 
+
+    // Combined inputPanel and filterPanel
+    JPanel combinedPanel = new JPanel();
+    combinedPanel.setLayout(new BoxLayout(combinedPanel, BoxLayout.Y_AXIS));
+    combinedPanel.add(inputPanel);
+    combinedPanel.add(filterPanel);
+
+    // Add the combined panel to the NORTH position of your main frame
+    add(combinedPanel, BorderLayout.NORTH);
+
+    add(new JScrollPane(transactionsTable), BorderLayout.CENTER);
     add(buttonPanel, BorderLayout.SOUTH);
-  
+
     // Set frame properties
-    setSize(400, 300);
+    setSize(800, 600);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
-  
+
   }
 
   public void refreshTable(List<Transaction> transactions) {

@@ -1,3 +1,6 @@
+/**
+ * Contains all the view files for the ExpenseTracker App
+ */
 package view;
 
 import javax.lang.model.util.ElementScanner6;
@@ -18,6 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Class for rendering the view of the Expense Tracker App.
+ */
 public class ExpenseTrackerView extends JFrame {
   private JTable transactionsTable;
 
@@ -39,6 +45,9 @@ public class ExpenseTrackerView extends JFrame {
   private JComboBox<String> categoryFilter;
 
 
+  /**
+   * Constructor for ExpenseTrackerView
+   */
   public ExpenseTrackerView() {
 
     setTitle("Expense Tracker"); // Set title
@@ -128,14 +137,21 @@ public class ExpenseTrackerView extends JFrame {
     setVisible(true);
   }
 
+  /**
+   * Setter method for the filtered row numbers.
+   * @param rowNumbers
+   */
   // Method to set the filtered row numbers
   public void setFilteredRowNumbers(List<Integer> rowNumbers) {
     filteredRowNumbers = rowNumbers;
   }
 
 
-
-
+  /**
+   * Refreshes table based on the transaction list in the application
+   * Called every time a new transaction is added in the list
+   * @param transactions
+   */
   public void refreshTable(List<Transaction> transactions) {
     // Clear existing rows
     model.setRowCount(0);
@@ -161,6 +177,12 @@ public class ExpenseTrackerView extends JFrame {
 
   }
 
+  /**
+   * Refreshes the table based on the filtered transactions.
+   * Called every time a filter is applied.
+   * @param transactions
+   * @param filteredTransactions
+   */
   public void refreshTableForFilteredTransactions(List<Transaction> transactions, List<Transaction> filteredTransactions) {
 
     // Clear existing rows
@@ -205,6 +227,10 @@ public class ExpenseTrackerView extends JFrame {
     transactionsTable.updateUI();
   }
 
+  /**
+   * Getter method for minimum amount filter field
+   * @return
+   */
   public double getMinAmountFilterField(){
     if(minAmountFilter.getText().isEmpty()) {
       return 0;
@@ -214,6 +240,10 @@ public class ExpenseTrackerView extends JFrame {
     }
   }
 
+  /**
+   * Getter method for maximum amount filter field
+   * @return
+   */
   public double getMaxAmountFilterField(){
     if(maxAmountFilter.getText().isEmpty()) {
       return 0;
@@ -223,43 +253,82 @@ public class ExpenseTrackerView extends JFrame {
     }
   }
 
+  /**
+   * Getter method which returns a string which user inputs in the category field.
+   * @return categoryField
+   */
   public String getCategoryFilterField(){
     return String.valueOf(categoryFilter.getSelectedItem());
   }
+
+  /**
+   * Getter method for applyFilterButton
+   * @return applyFilterBtn
+   */
   public JButton getApplyFilterBtn() {
     return applyFiltersBtn;
   }
 
+  /**
+   * Getter method for clearFilterButton
+   * @return clearFiltersBtn
+   */
   public JButton getClearFilterBtn() {
     return clearFiltersBtn;
   }
 
+  /**
+   * Setter method for categoryFilterButton
+   *
+   */
   public void setCategoryFilterField(String category){
     if(category.equals("")){
       categoryFilter.setSelectedIndex(-1);
     }
   }
 
+  /**
+   * Setter method for minimum amount filter field
+   * @param minAmount
+   */
   public void setMinAmountFilterField(double minAmount){
     minAmountFilter.setValue(minAmount);
   }
 
+  /**
+   * Setter method for maximum amount filter field
+   * @param maxAmount
+   */
   public void setMaxAmountFilterField(double maxAmount){
     maxAmountFilter.setValue(maxAmount);
   }
 
-
+  /**
+   * Getter method for add transaction button
+   * @return
+   */
   public JButton getAddTransactionBtn() {
     return addTransactionBtn;
   }
+
+  /**
+   * Getter method for the table model
+   * @return model
+   */
   public DefaultTableModel getTableModel() {
     return model;
   }
+
+
   // Other view methods
   public JTable getTransactionsTable() {
     return transactionsTable;
   }
 
+  /**
+   * Getter method for the amount field.
+   * @return amount
+   */
   public double getAmountField() {
     if(amountField.getText().isEmpty()) {
       return 0;
@@ -273,7 +342,10 @@ public class ExpenseTrackerView extends JFrame {
     this.amountField = amountField;
   }
 
-
+  /**
+   * Getter method for Category field
+   * @return category
+   */
   public String getCategoryField() {
     return categoryField.getText();
   }
@@ -282,6 +354,11 @@ public class ExpenseTrackerView extends JFrame {
     this.categoryField = categoryField;
   }
 }
+
+  /**
+   * This component class handles rendering rows dynamically based on the applied filter.
+   * Filtered rows are applied Light green colour.
+   */
 
 class CustomTableCellRenderer extends DefaultTableCellRenderer {
 
@@ -297,6 +374,19 @@ class CustomTableCellRenderer extends DefaultTableCellRenderer {
     this.filteredRowNumbers = filteredRowNumbers;
   }
 
+  /**
+   * This component is used in rendering rows dynamically based on the applied filter.
+   * Filtered rows are applied Light green colour.
+   *
+   * @param table  the <code>JTable</code>
+   * @param value  the value to assign to the cell at
+   *                  <code>[row, column]</code>
+   * @param isSelected true if cell is selected
+   * @param hasFocus true if cell has focus
+   * @param row  the row of the cell to render
+   * @param column the column of the cell to render
+   * @return component
+   */
   @Override
   public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
     Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);

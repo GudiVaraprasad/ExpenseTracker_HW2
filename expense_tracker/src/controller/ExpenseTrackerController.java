@@ -5,11 +5,19 @@ import view.ExpenseTrackerView;
 
 import java.util.List;
 
+/**
+ * Class for handling the controller of the Expense Tracker App
+ */
 public class ExpenseTrackerController {
 
   private ExpenseTrackerModel model;
   private ExpenseTrackerView view;
 
+  /**
+   * Constructor for ExpenseTrackerController class.
+   * @param model
+   * @param view
+   */
   public ExpenseTrackerController(ExpenseTrackerModel model, ExpenseTrackerView view) {
     this.model = model;
     this.view = view;
@@ -17,6 +25,9 @@ public class ExpenseTrackerController {
     // Set up view event handlers
   }
 
+  /**
+   * Method to refresh the table.
+   */
   public void refresh() {
 
     // Get transactions from model
@@ -27,6 +38,14 @@ public class ExpenseTrackerController {
 
   }
 
+  /**
+   * Method for input validation and adding a transaction in the Table
+   * Returns true if transaction is added.
+   * Returns false if fails inputValidation
+   * @param amount
+   * @param category
+   * @return booleanValue
+   */
   public boolean addTransaction(double amount, String category) {
     if (!InputValidation.isValidAmount(amount)) {
       return false;
@@ -44,6 +63,12 @@ public class ExpenseTrackerController {
 
   // Other controller methods
 
+  /**
+   * Arraylist that contains the filter conditions to be applied
+   * @param filterCondition
+   * @param filterBy
+   * @return filtercondition
+   */
   public List<Transaction> applyFilter(Object filterCondition, String filterBy) {
     TransactionFilter filter;
 

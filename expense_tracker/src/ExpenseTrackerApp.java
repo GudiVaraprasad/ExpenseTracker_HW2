@@ -11,8 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+
+/**
+ * Main Class for handling the Expense Tracker App.
+ * Contains Main Method.
+ */
+
 public class ExpenseTrackerApp {
 
+  /**
+   *  Main method
+   * @param args
+   */
   public static void main(String[] args) {
 
 

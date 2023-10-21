@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Handles Transaction filtering by amount.
+ * Minimum and Maximum amounts are provided by the user through the input fields.
+ * Here, validation is performed to check if the minAmount and maxAmount are in the range.
+ */
 public class TransactionsFilterByAmount implements TransactionFilter {
     @Override
     // overriding method for the interface.
@@ -27,6 +32,12 @@ public class TransactionsFilterByAmount implements TransactionFilter {
     private double minAmount;
     private double maxAmount;
 
+    /**
+     * Method for filtering transactions by amount.
+     * Takes minimum amount and maximum amount and checks for inputValidation
+     * @param minAmount
+     * @param maxAmount
+     */
     public TransactionsFilterByAmount(double minAmount, double maxAmount) {
 
         this.minAmount = minAmount;

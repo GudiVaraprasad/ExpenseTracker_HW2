@@ -9,10 +9,12 @@ import controller.InputValidation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ExpenseTrackerApp {
 
   public static void main(String[] args) {
+
 
     // Create MVC components
     ExpenseTrackerModel model = new ExpenseTrackerModel();
@@ -40,6 +42,8 @@ public class ExpenseTrackerApp {
     view.getApplyFilterBtn().addActionListener(e -> {
       double minAmount = view.getMinAmountFilterField();
       double maxAmount = view.getMaxAmountFilterField();
+
+
 
       String selectedCategory = view.getCategoryFilterField();
       List<Transaction> filteredTransactions = new ArrayList<>();

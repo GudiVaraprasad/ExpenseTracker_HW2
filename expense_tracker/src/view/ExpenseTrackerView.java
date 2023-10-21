@@ -9,15 +9,20 @@ import javax.swing.table.DefaultTableModel;
 
 import controller.InputValidation;
 import java.awt.*;
+import java.text.Format;
 import java.text.NumberFormat;
 
 import model.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ExpenseTrackerView extends JFrame {
   private JTable transactionsTable;
+
+  NumberFormat format = NumberFormat.getNumberInstance(Locale.US);
+
   private JButton addTransactionBtn;
   private JFormattedTextField amountField;
   private JTextField categoryField;
@@ -28,7 +33,6 @@ public class ExpenseTrackerView extends JFrame {
   private JButton applyFiltersBtn;
 
   private JButton clearFiltersBtn;
-
   private JFormattedTextField minAmountFilter;
   private JFormattedTextField maxAmountFilter;
 
@@ -36,6 +40,7 @@ public class ExpenseTrackerView extends JFrame {
 
 
   public ExpenseTrackerView() {
+
     setTitle("Expense Tracker"); // Set title
     setSize(600, 400); // Make GUI larger
 
@@ -47,10 +52,11 @@ public class ExpenseTrackerView extends JFrame {
     // Create UI components
     JLabel amountLabel = new JLabel("Amount:");
     NumberFormat format = NumberFormat.getNumberInstance();
+    format.setGroupingUsed(false);
+
 
     amountField = new JFormattedTextField(format);
     amountField.setColumns(10);
-
 
     JLabel categoryLabel = new JLabel("Category:");
     categoryField = new JTextField(10);
@@ -120,7 +126,6 @@ public class ExpenseTrackerView extends JFrame {
     setSize(800, 600);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
-
   }
 
   // Method to set the filtered row numbers

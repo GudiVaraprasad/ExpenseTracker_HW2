@@ -1,5 +1,6 @@
 package model;
 
+import controller.InputValidation;
 import model.Transaction;
 import model.TransactionFilter;
 
@@ -24,6 +25,10 @@ public class TransactionsFilterByCategory implements TransactionFilter {
 
     public TransactionsFilterByCategory(String category) {
         this.category = category;
+        if(!InputValidation.isValidCategory(category)){
+                throw new IllegalArgumentException("Invalid category entered");
+
+        }
     }
 
 }

@@ -57,6 +57,6 @@ public class ExpenseTrackerController {
       throw new IllegalArgumentException("Invalid filter type");
     }
 
-    return filter.filter(model.getTransactions()); // transactions is your list of transactions
+    return filter.filter(model.getTransactions()); // transactions is the list of transactions
   }
 }

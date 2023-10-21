@@ -1,7 +1,14 @@
 package model;
 
+import controller.InputValidation;
+import view.ExpenseTrackerView;
+
+import javax.swing.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class TransactionsFilterByAmount implements TransactionFilter {
     @Override
@@ -21,7 +28,12 @@ public class TransactionsFilterByAmount implements TransactionFilter {
     private double maxAmount;
 
     public TransactionsFilterByAmount(double minAmount, double maxAmount) {
+
         this.minAmount = minAmount;
         this.maxAmount = maxAmount;
+
+        if(!InputValidation.isValidAmount(minAmount) || !InputValidation.isValidAmount(maxAmount)){
+            JOptionPane.showMessageDialog(null, "Invalid amount entered in the Filter.");
+        }
     }
 }

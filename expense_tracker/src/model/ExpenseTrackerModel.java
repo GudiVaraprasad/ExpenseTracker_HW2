@@ -21,6 +21,7 @@ public class ExpenseTrackerModel {
   }
 
   public List<Transaction> getTransactions() {
+
     // returning immutable list which is basically a copy of the original list.
     return Collections.unmodifiableList(new ArrayList<>(transactions));
   }

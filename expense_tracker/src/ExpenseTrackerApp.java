@@ -13,7 +13,7 @@ import java.util.List;
 public class ExpenseTrackerApp {
 
   public static void main(String[] args) {
-    
+
     // Create MVC components
     ExpenseTrackerModel model = new ExpenseTrackerModel();
     ExpenseTrackerView view = new ExpenseTrackerView();
@@ -27,10 +27,10 @@ public class ExpenseTrackerApp {
       // Get transaction data from view
       double amount = view.getAmountField();
       String category = view.getCategoryField();
-      
+
       // Call controller to add transaction
       boolean added = controller.addTransaction(amount, category);
-      
+
       if (!added) {
         JOptionPane.showMessageDialog(view, "Invalid amount or category entered");
         view.toFront();
@@ -45,22 +45,28 @@ public class ExpenseTrackerApp {
       List<Transaction> filteredTransactions = new ArrayList<>();
 
       if(minAmount == 0 && maxAmount == 0 && selectedCategory.equals("null")){
-          JOptionPane.showMessageDialog(view,"Select a filter");
+        JOptionPane.showMessageDialog(view,"Select a filter");
       } else if(minAmount != 0 && maxAmount != 0 && !selectedCategory.equals("null")){
-          JOptionPane.showMessageDialog(view,"Select only one filter");
+        JOptionPane.showMessageDialog(view,"Select only one filter");
+      } else if(maxAmount != 0 && !selectedCategory.equals("null")){
+        JOptionPane.showMessageDialog(view,"Select only one filter");
+      } else if(minAmount != 0 && !selectedCategory.equals("null")){
+        JOptionPane.showMessageDialog(view,"Select only one filter");
       } else if(minAmount == 0 && maxAmount == 0){
         filteredTransactions = controller.applyFilter(selectedCategory, "category");
       } else {
-          double[] range = {minAmount, maxAmount};
-          filteredTransactions = controller.applyFilter(range, "amount");
+        double[] range = {minAmount, maxAmount};
+        filteredTransactions = controller.applyFilter(range, "amount");
       }
-      System.out.println(filteredTransactions);
+//      System.out.println(filteredTransactions);
+      view.refreshTableForFilteredTransactions(model.getTransactions(), filteredTransactions);
     });
 
     view.getClearFilterBtn().addActionListener(e -> {
       view.setMaxAmountFilterField(0);
       view.setMinAmountFilterField(0);
       view.setCategoryFilterField("");
+      view.refreshTable(model.getTransactions());
     });
 
   }

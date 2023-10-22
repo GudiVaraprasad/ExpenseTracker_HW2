@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
 /**
  * Main Class for handling the Expense Tracker App.
  * Contains Main Method.
@@ -20,11 +19,11 @@ import java.util.Locale;
 public class ExpenseTrackerApp {
 
   /**
-   *  Main method
+   * Main method
+   * 
    * @param args
    */
   public static void main(String[] args) {
-
 
     // Create MVC components
     ExpenseTrackerModel model = new ExpenseTrackerModel();
@@ -49,33 +48,32 @@ public class ExpenseTrackerApp {
       }
     });
 
+    // Action Listner for apply filter button
     view.getApplyFilterBtn().addActionListener(e -> {
       double minAmount = view.getMinAmountFilterField();
       double maxAmount = view.getMaxAmountFilterField();
 
-
-
       String selectedCategory = view.getCategoryFilterField();
       List<Transaction> filteredTransactions = new ArrayList<>();
 
-      if(minAmount == 0 && maxAmount == 0 && selectedCategory.equals("null")){
-        JOptionPane.showMessageDialog(view,"Select a filter");
-      } else if(minAmount != 0 && maxAmount != 0 && !selectedCategory.equals("null")){
-        JOptionPane.showMessageDialog(view,"Select only one filter");
-      } else if(maxAmount != 0 && !selectedCategory.equals("null")){
-        JOptionPane.showMessageDialog(view,"Select only one filter");
-      } else if(minAmount != 0 && !selectedCategory.equals("null")){
-        JOptionPane.showMessageDialog(view,"Select only one filter");
-      } else if(minAmount == 0 && maxAmount == 0){
+      if (minAmount == 0 && maxAmount == 0 && selectedCategory.equals("null")) {
+        JOptionPane.showMessageDialog(view, "Select a filter");
+      } else if (minAmount != 0 && maxAmount != 0 && !selectedCategory.equals("null")) {
+        JOptionPane.showMessageDialog(view, "Select only one filter");
+      } else if (maxAmount != 0 && !selectedCategory.equals("null")) {
+        JOptionPane.showMessageDialog(view, "Select only one filter");
+      } else if (minAmount != 0 && !selectedCategory.equals("null")) {
+        JOptionPane.showMessageDialog(view, "Select only one filter");
+      } else if (minAmount == 0 && maxAmount == 0) {
         filteredTransactions = controller.applyFilter(selectedCategory, "category");
       } else {
-        double[] range = {minAmount, maxAmount};
+        double[] range = { minAmount, maxAmount };
         filteredTransactions = controller.applyFilter(range, "amount");
       }
-//      System.out.println(filteredTransactions);
       view.refreshTableForFilteredTransactions(model.getTransactions(), filteredTransactions);
     });
 
+    // Action Listner for clear filter button
     view.getClearFilterBtn().addActionListener(e -> {
       view.setMaxAmountFilterField(0);
       view.setMinAmountFilterField(0);
